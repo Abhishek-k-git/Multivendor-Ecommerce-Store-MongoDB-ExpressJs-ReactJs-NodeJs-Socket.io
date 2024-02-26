@@ -2,7 +2,7 @@ const sendToken = (user, statusCode, res) => {
   const token = user.getJwtToken();
   const options = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    secret: process.env.JWT_SECRET_KEY,
+    secret: process.env.ACTIVATION_SECRET,
     domain: process.env.CLIENT_URL,
     httpOnly: true,
     sameSite: "None",
