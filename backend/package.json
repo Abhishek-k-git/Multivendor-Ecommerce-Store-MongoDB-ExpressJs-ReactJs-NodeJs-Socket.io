@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Ecommerce Store, Shop for Electronics, Hobbies, Cosmetics and many more at affordable price",
   "main": "server.js",
-  "engines": {
-    "node": "18"
-  },
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
