@@ -1,0 +1,72 @@
+# Common build artifacts
+**/node_modules/
+**/bower_components/
+**/dist/
+**/build/
+**/.next/
+
+# Temporary development files
+**/.DS_Store
+**/Thumbs.db
+
+# IDE-specific files
+**/.idea/
+**/.vscode/
+**/.sublime-project
+
+# Editors' temporary/backup files
+*.swp
+*.tmp
+*.swo
+*.orig
+
+# Version control system directories
+.git/
+.hg/
+.svn/
+
+# IDE caching/workspace files
+yarn-error.log
+npm-debug.log
+.lock-wscript
+
+# OS-specific temp files
+**/temp/
+**/tmp/
+**/var/tmp/
+**/private/tmp/
+
+# IDE/editor project config files
+**/package-lock.json
+**/pnpm-lock.yaml
+**/yarn.lock
+
+# Build output
+**/lib/
+**/coverage/
+**/docs/build/
+
+# Test environment specific files
+**/.env
+**/.env.test
+**/.env.local
+
+# Sensitive data
+**/secrets.json
+**/.env.production
+
+# Logs
+**/logs/*.log
+**/log/*.*
+
+# IDE generated documentation
+**/doc/
+
+# Code linter configs
+**/eslint.cache
+**/tslint.cache
+
+# Unused package management artifacts
+**/package-lock.json
+**/pnpm-lock.yaml
+**/yarn.lock

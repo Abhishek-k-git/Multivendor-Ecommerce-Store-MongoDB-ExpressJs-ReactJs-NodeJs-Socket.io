@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Noto Sans", sans-serif;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero-image {
+  background-image: url(./assets/images/heroposter.png);
+  background-position: center;
+  background-size: 100%;
+}
+.bg-pattern {
+  background-image: url(./assets/images/pattern.png);
+  background-size: 100%;
+  background-blend-mode: screen;
+}
+.w-side {
+  width: calc(100vw - 40px);
+}
+.msg-body {
+  height: calc(100vh - 120px);
+}
+
+/* toast */
+.Toastify__toast {
+  font-size: 12px !important;
+  font-weight: 500;
+  color: #09090b;
+  --toastify-toast-min-height: 50px;
+  padding: 8px;
+  --toastify-toast-bd-radius: 3px;
+  align-items: center;
+  justify-content: space-between;
+  max-height: var(--toastify-toast-max-height);
+  --toastify-font-family: "Noto Sans", sans-serif;
+  z-index: 100;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.Toastify__toast-icon svg {
+  width: 15px !important;
+}
+.Toastify__toast-body {
+  width: 100%;
+  padding: 0px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.Toastify__toast-icon {
+  margin-inline-end: 8px;
+  width: 12px;
+}
+.Toastify__close-button svg {
+  width: 12px;
+  height: 12px;
+  margin-top: 10px;
+}
+.Toastify__progress-bar--wrp {
+  width: 100%;
+  height: 3px;
+  --toastify-toast-bd-radius: 0px;
+}
+.Toastify__progress-bar--bg {
+  --toastify-color-progress-bgo: 0.4;
+}
