@@ -3,6 +3,7 @@ const sendToken = (user, statusCode, res) => {
   const options = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     secret: process.env.JWT_SECRET_KEY,
+    domain: process.env.CLIENT_URL,
     httpOnly: true,
     sameSite: "None",
     secure: true,
