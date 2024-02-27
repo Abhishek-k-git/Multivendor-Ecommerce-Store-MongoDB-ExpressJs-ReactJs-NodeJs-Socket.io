@@ -3,8 +3,9 @@ const sendToken = (user, statusCode, res) => {
   const options = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    // sameSite: "None",
+    sameSite: "None",
     secure: true,
+    sameSite: "/",
   };
 
   res.status(statusCode).cookie("token", token, options).json({
@@ -12,6 +13,13 @@ const sendToken = (user, statusCode, res) => {
     user,
     token,
   });
+
+  res.set("Access-Control-Allow-Origin", req.headers.origin);
+  // res.set("Access-Control-Allow-Credentials", "true");
+  res.set(
+    "Access-Control-Expose-Headers",
+    "date, etag, access-control-allow-origin, access-control-allow-credentials"
+  );
 };
 
 module.exports = sendToken;
