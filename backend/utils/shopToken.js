@@ -3,9 +3,9 @@ const sendShopToken = (user, statusCode, res) => {
   const options = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    sameSite: "None",
+    // sameSite: "None",
     secure: true,
-    path: "/",
+    // path: "/",
   };
 
   res.status(statusCode).cookie("seller_token", token, options).json({
