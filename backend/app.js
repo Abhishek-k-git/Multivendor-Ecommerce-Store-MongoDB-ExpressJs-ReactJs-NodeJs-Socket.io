@@ -3,21 +3,21 @@ const ErrorHandler = require("./middleware/error");
 const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-// const cors = require("cors");
+const cors = require("cors");
 
 // config
 require("dotenv").config({
   path: "./.env",
 });
 
-// app.use(
-//   cors({
-//     origin: [process.env.CLIENT_URL],
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+    // methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
