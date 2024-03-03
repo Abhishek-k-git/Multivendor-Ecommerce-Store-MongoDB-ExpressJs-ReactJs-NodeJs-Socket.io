@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import socketIO from "socket.io-client";
 import { format } from "timeago.js";
 import { socket } from "../const.js";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import { TfiGallery } from "react-icons/tfi";
@@ -46,10 +46,11 @@ const UserInbox = () => {
   useEffect(() => {
     const getConversation = async () => {
       try {
-        const resonse = await axios.get(
+        const resonse = await fetch(
           `${server}/conversation/get-all-conversation-user/${user?._id}`,
           {
-            withCredentials: true,
+            method: "GET",
+            credentials: "include",
           }
         );
 
@@ -82,7 +83,7 @@ const UserInbox = () => {
   useEffect(() => {
     const getMessage = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `${server}/message/get-all-messages/${currentChat?._id}`
         );
         setMessages(response.data.messages);
@@ -114,8 +115,13 @@ const UserInbox = () => {
 
     try {
       if (newMessage !== "") {
-        await axios
-          .post(`${server}/message/create-new-message`, message)
+        await fetch(`${server}/message/create-new-message`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(message),
+        })
           .then((res) => {
             setMessages([...messages, res.data.message]);
             updateLastMessage();
@@ -135,11 +141,19 @@ const UserInbox = () => {
       lastMessageId: user._id,
     });
 
-    await axios
-      .put(`${server}/conversation/update-last-message/${currentChat._id}`, {
-        lastMessage: newMessage,
-        lastMessageId: user._id,
-      })
+    await fetch(
+      `${server}/conversation/update-last-message/${currentChat._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lastMessage: newMessage,
+          lastMessageId: user._id,
+        }),
+      }
+    )
       .then((res) => {
         setNewMessage("");
       })
@@ -173,29 +187,39 @@ const UserInbox = () => {
     });
 
     try {
-      await axios
-        .post(`${server}/message/create-new-message`, {
+      await fetch(`${server}/message/create-new-message`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           images: e,
           sender: user._id,
           text: newMessage,
           conversationId: currentChat._id,
-        })
-        .then((res) => {
-          setImages();
-          setMessages([...messages, res.data.message]);
-          updateLastMessageForImage();
-        });
+        }),
+      }).then((res) => {
+        setImages();
+        setMessages([...messages, res.data.message]);
+        updateLastMessageForImage();
+      });
     } catch (error) {
       toast.error(error.messages);
     }
   };
 
   const updateLastMessageForImage = async () => {
-    await axios.put(
+    await fetch(
       `${server}/conversation/update-last-message/${currentChat._id}`,
       {
-        lastMessage: "Photo",
-        lastMessageId: user._id,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lastMessage: "Photo",
+          lastMessageId: user._id,
+        }),
       }
     );
   };
@@ -274,7 +298,7 @@ const MessageList = ({
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`${server}/shop/get-shop-info/${userId}`);
+        const res = await fetch(`${server}/shop/get-shop-info/${userId}`);
         setUser(res.data.shop);
       } catch (error) {
         toast.error(error.message);

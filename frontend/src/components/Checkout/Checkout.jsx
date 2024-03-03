@@ -3,7 +3,7 @@ import { Country, State } from "country-state-city";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { server } from "../../const.js";
 import { toast } from "react-toastify";
 
@@ -71,7 +71,7 @@ const Checkout = () => {
     e.preventDefault();
     const name = couponCode;
 
-    await axios.get(`${server}/coupon/get-coupon-value/${name}`).then((res) => {
+    await fetch(`${server}/coupon/get-coupon-value/${name}`).then((res) => {
       const shopId = res.data.couponCode?.shopId;
       const couponCodeValue = res.data.couponCode?.value;
       if (res.data.couponCode !== null) {

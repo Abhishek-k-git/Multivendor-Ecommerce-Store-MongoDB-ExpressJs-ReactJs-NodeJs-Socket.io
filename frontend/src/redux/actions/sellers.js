@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { server } from "../../const.js";
 
 // get all sellers --- admin
@@ -8,8 +8,9 @@ export const getAllSellers = () => async (dispatch) => {
       type: "getAllSellersRequest",
     });
 
-    const { data } = await axios.get(`${server}/shop/admin-all-sellers`, {
-      withCredentials: true,
+    const { data } = await fetch(`${server}/shop/admin-all-sellers`, {
+      method: "GET",
+      credentials: "include",
     });
 
     dispatch({

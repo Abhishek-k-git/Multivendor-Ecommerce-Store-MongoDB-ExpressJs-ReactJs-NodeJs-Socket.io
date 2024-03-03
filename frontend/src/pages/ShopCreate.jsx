@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { server } from "../const.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -26,8 +26,12 @@ const ShopCreate = () => {
   const [visible, setVisible] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${server}/shop/create-shop`, {
+    fetch(`${server}/shop/create-shop`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         name,
         email,
         password,
@@ -35,7 +39,8 @@ const ShopCreate = () => {
         zipCode,
         address,
         phoneNumber,
-      })
+      }),
+    })
       .then((res) => {
         toast.success(res.data.message);
         setName("");

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { server } from "../../const.js";
 import { AiOutlineCamera } from "react-icons/ai";
-import axios from "axios";
+// import axios from "axios";
 import { loadSeller } from "../../redux/actions/user";
 import { toast } from "react-toastify";
 
@@ -25,14 +25,14 @@ const ShopSettings = () => {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatar(reader.result);
-        axios
-          .put(
-            `${server}/shop/update-shop-avatar`,
-            { avatar: reader.result },
-            {
-              withCredentials: true,
-            }
-          )
+        fetch(`${server}/shop/update-shop-avatar`, {
+          method: "PUT",
+          body: JSON.stringify({ avatar: reader.result }),
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
           .then((res) => {
             dispatch(loadSeller());
             toast.success("Avatar updated successfully!");
@@ -49,18 +49,20 @@ const ShopSettings = () => {
   const updateHandler = async (e) => {
     e.preventDefault();
 
-    await axios
-      .put(
-        `${server}/shop/update-seller-info`,
-        {
-          name,
-          address,
-          zipCode,
-          phoneNumber,
-          description,
-        },
-        { withCredentials: true }
-      )
+    await fetch(`${server}/shop/update-seller-info`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name,
+        address,
+        zipCode,
+        phoneNumber,
+        description,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
       .then((res) => {
         toast.success("Shop info updated succesfully!");
         dispatch(loadSeller());

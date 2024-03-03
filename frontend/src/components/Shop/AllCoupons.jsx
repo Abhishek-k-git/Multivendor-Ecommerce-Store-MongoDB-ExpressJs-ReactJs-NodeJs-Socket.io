@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
@@ -25,10 +25,10 @@ const AllCoupons = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(`${server}/coupon/get-coupon/${seller._id}`, {
-        withCredentials: true,
-      })
+    fetch(`${server}/coupon/get-coupon/${seller._id}`, {
+      method: "GET",
+      credentials: "include",
+    })
       .then((res) => {
         setIsLoading(false);
         setCoupouns(res.data.couponCodes);
@@ -39,30 +39,34 @@ const AllCoupons = () => {
   }, [dispatch]);
 
   const handleDelete = async (id) => {
-    axios
-      .delete(`${server}/coupon/delete-coupon/${id}`, { withCredentials: true })
-      .then((res) => {
-        toast.success("Coupon code deleted succesfully!");
-      });
+    fetch(`${server}/coupon/delete-coupon/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then((res) => {
+      toast.success("Coupon code deleted succesfully!");
+    });
     window.location.reload();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(
-        `${server}/coupon/create-coupon-code`,
-        {
-          name,
-          minAmount,
-          maxAmount,
-          selectedProducts,
-          value,
-          shopId: seller._id,
-        },
-        { withCredentials: true }
-      )
+    await fetch(`${server}/coupon/create-coupon-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        name,
+        minAmount,
+        maxAmount,
+        selectedProducts,
+        value,
+        shopId: seller._id,
+      }),
+      credentials: "include", // Equivalent to withCredentials: true
+    })
       .then((res) => {
         toast.success("Coupon code created successfully!");
         setOpen(false);

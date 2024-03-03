@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -9,11 +9,11 @@ import { server } from "../../const.js";
 const AllEvents = () => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    axios
-      .get(`${server}/event/admin-all-events`, { withCredentials: true })
-      .then((res) => {
-        setEvents(res.data.events);
-      });
+    fetch(`${server}/event/admin-all-events`, {
+      credentials: "include",
+    }).then((res) => {
+      setEvents(res.data.events);
+    });
   }, []);
 
   const columns = [

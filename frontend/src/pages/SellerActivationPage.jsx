@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -11,10 +11,13 @@ const SellerActivationPage = () => {
   useEffect(() => {
     if (activation_token) {
       const sendRequest = async () => {
-        await axios
-          .post(`${server}/shop/activation`, {
-            activation_token,
-          })
+        await fetch(`${server}/shop/activation`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ activation_token }),
+        })
           .then((res) => {
             console.log(res);
           })

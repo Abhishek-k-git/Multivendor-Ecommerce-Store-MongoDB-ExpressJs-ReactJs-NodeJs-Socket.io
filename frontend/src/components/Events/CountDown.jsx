@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { server } from "../../const.js";
 
@@ -15,7 +15,9 @@ const CountDown = ({ data }) => {
       typeof timeLeft.minutes === "undefined" &&
       typeof timeLeft.seconds === "undefined"
     ) {
-      axios.delete(`${server}/event/delete-shop-event/${data._id}`);
+      fetch(`${server}/event/delete-shop-event/${data._id}`, {
+        method: "DELETE",
+      });
     }
     return () => clearTimeout(timer);
   });

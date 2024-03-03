@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { server } from "../../const.js";
 
 // load user
@@ -7,8 +7,9 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: "LoadUserRequest",
     });
-    const { data } = await axios.get(`${server}/user/getuser`, {
-      withCredentials: true,
+    const { data } = await fetch(`${server}/user/getuser`, {
+      method: "GET",
+      credentials: "include",
     });
     dispatch({
       type: "LoadUserSuccess",
@@ -32,8 +33,9 @@ export const loadSeller = () => async (dispatch) => {
     dispatch({
       type: "LoadSellerRequest",
     });
-    const { data } = await axios.get(`${server}/shop/getSeller`, {
-      withCredentials: true,
+    const { data } = await fetch(`${server}/shop/getSeller`, {
+      method: "GET",
+      credentials: "include",
     });
     dispatch({
       type: "LoadSellerSuccess",
@@ -62,21 +64,20 @@ export const updateUserInformation =
         type: "updateUserInfoRequest",
       });
 
-      const { data } = await axios.put(
-        `${server}/user/update-user-info`,
-        {
+      const { data } = await fetch(`${server}/user/update-user-info`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify({
           email,
           password,
           phoneNumber,
           name,
-        },
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Credentials": true,
-          },
-        }
-      );
+        }),
+      });
 
       dispatch({
         type: "updateUserInfoSuccess",
@@ -99,18 +100,21 @@ export const updatUserAddress =
         type: "updateUserAddressRequest",
       });
 
-      const { data } = await axios.put(
-        `${server}/user/update-user-addresses`,
-        {
+      const { data } = await fetch(`${server}/user/update-user-addresses`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
           country,
           state,
           address1,
           city,
           zipCode,
           addressType,
-        },
-        { withCredentials: true }
-      );
+        }),
+      });
 
       dispatch({
         type: "updateUserAddressSuccess",
@@ -134,10 +138,10 @@ export const deleteUserAddress = (id) => async (dispatch) => {
       type: "deleteUserAddressRequest",
     });
 
-    const { data } = await axios.delete(
-      `${server}/user/delete-user-address/${id}`,
-      { withCredentials: true }
-    );
+    const { data } = await fetch(`${server}/user/delete-user-address/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
 
     dispatch({
       type: "deleteUserAddressSuccess",
@@ -161,8 +165,9 @@ export const getAllUsers = () => async (dispatch) => {
       type: "getAllUsersRequest",
     });
 
-    const { data } = await axios.get(`${server}/user/admin-all-users`, {
-      withCredentials: true,
+    const { data } = await fetch(`${server}/user/admin-all-users`, {
+      method: "GET",
+      credentials: "include",
     });
 
     dispatch({
