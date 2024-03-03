@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { server } from "../../const.js";
 import { Link } from "react-router-dom";
@@ -15,10 +15,10 @@ const AllWithdraw = () => {
   const [withdrawStatus, setWithdrawStatus] = useState("Processing");
 
   useEffect(() => {
-    fetch(`${server}/withdraw/get-all-withdraw-request`, {
-      method: "GET",
-      credentials: "include",
-    })
+    axios
+      .get(`${server}/withdraw/get-all-withdraw-request`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setData(res.data.withdraws);
       })
@@ -80,21 +80,19 @@ const AllWithdraw = () => {
   ];
 
   const handleSubmit = async () => {
-    await fetch(
-      `${server}/withdraw/update-withdraw-request/${withdrawData.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ sellerId: withdrawData.shopId }),
-        headers: {
-          "Content-Type": "application/json",
-          credentials: "include",
+    await axios
+      .put(
+        `${server}/withdraw/update-withdraw-request/${withdrawData.id}`,
+        {
+          sellerId: withdrawData.shopId,
         },
-      }
-    ).then((res) => {
-      toast.success("Withdraw request updated successfully!");
-      setData(res.data.withdraws);
-      setOpen(false);
-    });
+        { withCredentials: true }
+      )
+      .then((res) => {
+        toast.success("Withdraw request updated successfully!");
+        setData(res.data.withdraws);
+        setOpen(false);
+      });
   };
 
   const row = [];

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { RxCross1 } from "react-icons/rx";
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 import { toast } from "react-toastify";
 import { loadSeller } from "../../redux/actions/user";
@@ -49,14 +49,14 @@ const WithdrawMoney = () => {
 
     setPaymentMethod(false);
 
-    await fetch(`${server}/shop/update-payment-methods`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ withdrawMethod }),
-      credentials: "include",
-    })
+    await axios
+      .put(
+        `${server}/shop/update-payment-methods`,
+        {
+          withdrawMethod,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         toast.success("Withdraw method added successfully!");
         dispatch(loadSeller());
@@ -75,13 +75,14 @@ const WithdrawMoney = () => {
   };
 
   const deleteHandler = async () => {
-    await fetch(`${server}/shop/delete-withdraw-method`, {
-      method: "DELETE",
-      credentials: "include",
-    }).then((res) => {
-      toast.success("Withdraw method deleted successfully!");
-      dispatch(loadSeller());
-    });
+    await axios
+      .delete(`${server}/shop/delete-withdraw-method`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success("Withdraw method deleted successfully!");
+        dispatch(loadSeller());
+      });
   };
 
   const error = () => {
@@ -93,16 +94,15 @@ const WithdrawMoney = () => {
       toast.error("You can't withdraw this amount!");
     } else {
       const amount = withdrawAmount;
-      await fetch(`${server}/withdraw/create-withdraw-request`, {
-        method: "POST",
-        body: JSON.stringify({ amount }),
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
-        toast.success("Withdraw money request is successful!");
-      });
+      await axios
+        .post(
+          `${server}/withdraw/create-withdraw-request`,
+          { amount },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          toast.success("Withdraw money request is successful!");
+        });
     }
   };
 

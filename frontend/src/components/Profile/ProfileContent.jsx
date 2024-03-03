@@ -20,7 +20,7 @@ import {
 import { Country, State } from "country-state-city";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-// import axios from "axios";
+import axios from "axios";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
 import UserInbox from "../../pages/UserInbox.jsx";
 import { CiPhone } from "react-icons/ci";
@@ -56,11 +56,14 @@ const ProfileContent = ({ active }) => {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatar(reader.result);
-        fetch(`${server}/user/update-avatar`, {
-          method: "PUT",
-          body: reader.result,
-          credentials: "include",
-        })
+        axios
+          .put(
+            `${server}/user/update-avatar`,
+            { avatar: reader.result },
+            {
+              withCredentials: true,
+            }
+          )
           .then((response) => {
             dispatch(loadUser());
             toast.success("avatar updated successfully!");
@@ -463,14 +466,12 @@ const ChangePassword = () => {
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
 
-    await fetch(`${server}/user/update-user-password`, {
-      method: "PUT",
-      body: JSON.stringify({ oldPassword, newPassword, confirmPassword }),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    await axios
+      .put(
+        `${server}/user/update-user-password`,
+        { oldPassword, newPassword, confirmPassword },
+        { withCredentials: true }
+      )
       .then((res) => {
         toast.success(res.data.success);
         setOldPassword("");

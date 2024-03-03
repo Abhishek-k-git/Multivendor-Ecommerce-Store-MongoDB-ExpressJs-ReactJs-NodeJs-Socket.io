@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 import { useState } from "react";
 
@@ -15,11 +15,11 @@ const AllProducts = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${server}/product/admin-all-products`, {
-      credentials: "include",
-    }).then((res) => {
-      setData(res.data.products);
-    });
+    axios
+      .get(`${server}/product/admin-all-products`, { withCredentials: true })
+      .then((res) => {
+        setData(res.data.products);
+      });
   }, []);
 
   const columns = [

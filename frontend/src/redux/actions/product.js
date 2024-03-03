@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 
 // create product
@@ -20,23 +20,18 @@ export const createProduct =
         type: "productCreateRequest",
       });
 
-      const { data } = await fetch(`${server}/product/create-product`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          description,
-          category,
-          tags,
-          originalPrice,
-          discountPrice,
-          stock,
-          shopId,
-          images,
-        }),
-      });
+      const { data } = await axios.post(
+        `${server}/product/create-product`,
+        name,
+        description,
+        category,
+        tags,
+        originalPrice,
+        discountPrice,
+        stock,
+        shopId,
+        images
+      );
       dispatch({
         type: "productCreateSuccess",
         payload: data.product,
@@ -56,7 +51,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
       type: "getAllProductsShopRequest",
     });
 
-    const { data } = await fetch(
+    const { data } = await axios.get(
       `${server}/product/get-all-products-shop/${id}`
     );
     dispatch({
@@ -78,11 +73,10 @@ export const deleteProduct = (id) => async (dispatch) => {
       type: "deleteProductRequest",
     });
 
-    const { data } = await fetch(
+    const { data } = await axios.delete(
       `${server}/product/delete-shop-product/${id}`,
       {
-        method: "DELETE",
-        credentials: "include",
+        withCredentials: true,
       }
     );
 
@@ -105,7 +99,7 @@ export const getAllProducts = () => async (dispatch) => {
       type: "getAllProductsRequest",
     });
 
-    const { data } = await fetch(`${server}/product/get-all-products`);
+    const { data } = await axios.get(`${server}/product/get-all-products`);
     dispatch({
       type: "getAllProductsSuccess",
       payload: data.products,

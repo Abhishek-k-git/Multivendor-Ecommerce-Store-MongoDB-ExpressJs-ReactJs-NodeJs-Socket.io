@@ -55,7 +55,7 @@ import ShopHomePage from "./pages/Shop/ShopHomePage.jsx";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute.jsx";
 import { getAllProducts } from "./redux/actions/product.js";
 import { getAllEvents } from "./redux/actions/event.js";
-// import axios from "axios";
+import axios from "axios";
 import { server, client } from "./const.js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -65,7 +65,7 @@ const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
 
   async function getStripeApikey() {
-    const { data } = await fetch(`${server}/payment/stripeapikey`);
+    const { data } = await axios.get(`${server}/payment/stripeapikey`);
     setStripeApiKey(data.stripeApikey);
   }
   useEffect(() => {

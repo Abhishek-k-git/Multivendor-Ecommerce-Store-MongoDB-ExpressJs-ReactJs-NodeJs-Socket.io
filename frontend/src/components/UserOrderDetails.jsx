@@ -5,7 +5,7 @@ import { getAllOrdersOfUser } from "../redux/actions/order";
 import { server } from "../const.js";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-// import axios from "axios";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -30,25 +30,18 @@ const UserOrderDetails = () => {
   const data = orders && orders.find((item) => item._id === id);
 
   const reviewHandler = async (e) => {
-    const url = `${server}/product/create-new-review`;
-    const data = {
-      user,
-      rating,
-      comment,
-      productId: selectedItem?._id,
-      orderId: id,
-    };
-
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      credentials: "include",
-    };
-
-    await fetch(url, options)
+    await axios
+      .put(
+        `${server}/product/create-new-review`,
+        {
+          user,
+          rating,
+          comment,
+          productId: selectedItem?._id,
+          orderId: id,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         toast.success(res.data.message);
         dispatch(getAllOrdersOfUser(user._id));
@@ -62,15 +55,10 @@ const UserOrderDetails = () => {
   };
 
   const refundHandler = async () => {
-    await fetch(`${server}/order/order-refund/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    await axios
+      .put(`${server}/order/order-refund/${id}`, {
         status: "Processing refund",
-      }),
-    })
+      })
       .then((res) => {
         toast.success(res.data.message);
         dispatch(getAllOrdersOfUser(user._id));

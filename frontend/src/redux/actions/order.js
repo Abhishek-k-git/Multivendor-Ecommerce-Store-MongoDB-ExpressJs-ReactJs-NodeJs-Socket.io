@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 
 // get all orders of user
@@ -8,7 +8,9 @@ export const getAllOrdersOfUser = (userId) => async (dispatch) => {
       type: "getAllOrdersUserRequest",
     });
 
-    const { data } = await fetch(`${server}/order/get-all-orders/${userId}`);
+    const { data } = await axios.get(
+      `${server}/order/get-all-orders/${userId}`
+    );
 
     dispatch({
       type: "getAllOrdersUserSuccess",
@@ -29,7 +31,7 @@ export const getAllOrdersOfShop = (shopId) => async (dispatch) => {
       type: "getAllOrdersShopRequest",
     });
 
-    const { data } = await fetch(
+    const { data } = await axios.get(
       `${server}/order/get-seller-all-orders/${shopId}`
     );
 
@@ -52,9 +54,8 @@ export const getAllOrdersOfAdmin = () => async (dispatch) => {
       type: "adminAllOrdersRequest",
     });
 
-    const { data } = await fetch(`${server}/order/admin-all-orders`, {
-      method: "GET",
-      credentials: "include",
+    const { data } = await axios.get(`${server}/order/admin-all-orders`, {
+      withCredentials: true,
     });
 
     dispatch({

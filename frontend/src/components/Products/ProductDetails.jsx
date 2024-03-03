@@ -15,7 +15,7 @@ import {
 import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
-// import axios from "axios";
+import axios from "axios";
 import { IconButton } from "@mui/material";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
@@ -94,17 +94,12 @@ const ProductDetails = ({ data }) => {
       const groupTitle = data._id + user._id;
       const userId = user._id;
       const sellerId = data.shop._id;
-      await fetch(`${server}/conversation/create-new-conversation`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      await axios
+        .post(`${server}/conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,
-        }),
-      })
+        })
         .then((res) => {
           navigate(`/inbox?${res.data.conversation._id}`);
         })

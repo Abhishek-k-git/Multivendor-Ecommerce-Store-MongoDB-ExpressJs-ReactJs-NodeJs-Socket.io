@@ -4,7 +4,7 @@ import { getAllUsers } from "../../redux/actions/user";
 import { DataGrid } from "@mui/x-data-grid";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Button, IconButton } from "@mui/material";
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 import { toast } from "react-toastify";
 
@@ -19,12 +19,11 @@ const AllUsers = () => {
   }, [dispatch]);
 
   const handleDelete = async (id) => {
-    await fetch(`${server}/user/delete-user/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    }).then((res) => {
-      toast.success(res.data.message);
-    });
+    await axios
+      .delete(`${server}/user/delete-user/${id}`, { withCredentials: true })
+      .then((res) => {
+        toast.success(res.data.message);
+      });
 
     dispatch(getAllUsers());
   };

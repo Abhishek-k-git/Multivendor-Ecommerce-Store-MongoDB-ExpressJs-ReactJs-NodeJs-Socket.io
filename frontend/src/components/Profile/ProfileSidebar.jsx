@@ -9,7 +9,7 @@ import {
 import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import { server } from "../../const.js";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -18,9 +18,8 @@ const ProfileSidebar = ({ setActive, active }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const logoutHandler = () => {
-    fetch(`${server}/user/logout`, {
-      credentials: "include",
-    })
+    axios
+      .get(`${server}/user/logout`, { withCredentials: true })
       .then((res) => {
         const localStorageNames = ["cartItems", "latestOrder", "wishlistItems"];
         for (const localStorageName of localStorageNames) {

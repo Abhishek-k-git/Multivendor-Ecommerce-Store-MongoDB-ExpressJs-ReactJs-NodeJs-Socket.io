@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../../const.js";
@@ -47,11 +47,10 @@ const DashboardMessages = () => {
   useEffect(() => {
     const getConversation = async () => {
       try {
-        const resonse = await fetch(
+        const resonse = await axios.get(
           `${server}/conversation/get-all-conversation-seller/${seller?._id}`,
           {
-            method: "GET",
-            credentials: "include",
+            withCredentials: true,
           }
         );
 
@@ -84,14 +83,8 @@ const DashboardMessages = () => {
   useEffect(() => {
     const getMessage = async () => {
       try {
-        const response = await fetch(
-          `${server}/message/get-all-messages/${currentChat?._id}`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-            },
-          }
+        const response = await axios.get(
+          `${server}/message/get-all-messages/${currentChat?._id}`
         );
         setMessages(response.data.messages);
       } catch (error) {
@@ -123,13 +116,8 @@ const DashboardMessages = () => {
 
     try {
       if (newMessage !== "") {
-        await fetch(`${server}/message/create-new-message`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(message),
-        })
+        await axios
+          .post(`${server}/message/create-new-message`, message)
           .then((res) => {
             setMessages([...messages, res.data.message]);
             updateLastMessage();
@@ -149,19 +137,11 @@ const DashboardMessages = () => {
       lastMessageId: seller._id,
     });
 
-    await fetch(
-      `${server}/conversation/update-last-message/${currentChat._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          lastMessage: newMessage,
-          lastMessageId: seller._id,
-        }),
-      }
-    )
+    await axios
+      .put(`${server}/conversation/update-last-message/${currentChat._id}`, {
+        lastMessage: newMessage,
+        lastMessageId: seller._id,
+      })
       .then((res) => {
         setNewMessage("");
       })
@@ -195,39 +175,29 @@ const DashboardMessages = () => {
     });
 
     try {
-      await fetch(`${server}/message/create-new-message`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      await axios
+        .post(`${server}/message/create-new-message`, {
           images: e,
           sender: seller._id,
           text: newMessage,
           conversationId: currentChat._id,
-        }),
-      }).then((res) => {
-        setImages();
-        setMessages([...messages, res.data.message]);
-        updateLastMessageForImage();
-      });
+        })
+        .then((res) => {
+          setImages();
+          setMessages([...messages, res.data.message]);
+          updateLastMessageForImage();
+        });
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const updateLastMessageForImage = async () => {
-    await fetch(
+    await axios.put(
       `${server}/conversation/update-last-message/${currentChat._id}`,
       {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          lastMessage: "Photo",
-          lastMessageId: seller._id,
-        }),
+        lastMessage: "Photo",
+        lastMessageId: seller._id,
       }
     );
   };
@@ -306,7 +276,7 @@ const MessageList = ({
 
     const getUser = async () => {
       try {
-        const res = await fetch(`${server}/user/user-info/${userId}`);
+        const res = await axios.get(`${server}/user/user-info/${userId}`);
         setUser(res.data.user);
       } catch (error) {
         toast.error(error.message);

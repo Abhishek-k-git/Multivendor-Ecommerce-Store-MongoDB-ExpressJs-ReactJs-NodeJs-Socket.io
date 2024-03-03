@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { server } from "../../const.js";
-// import axios from "axios";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { CiPhone } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
@@ -24,14 +24,14 @@ const OrderDetails = () => {
   const data = orders && orders.find((item) => item._id === id);
 
   const orderUpdateHandler = async (e) => {
-    await fetch(`${server}/order/update-order-status/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status }),
-      credentials: "include",
-    })
+    await axios
+      .put(
+        `${server}/order/update-order-status/${id}`,
+        {
+          status,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         toast.success("Order updated!");
         navigate("/dashboard-orders");
@@ -42,14 +42,14 @@ const OrderDetails = () => {
   };
 
   const refundOrderUpdateHandler = async (e) => {
-    await fetch(`${server}/order/order-refund-success/${id}`, {
-      method: "PUT",
-      body: JSON.stringify({ status }),
-      headers: {
-        "Content-Type": "application/json",
-        Credentials: "include",
-      },
-    })
+    await axios
+      .put(
+        `${server}/order/order-refund-success/${id}`,
+        {
+          status,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         toast.success("Order updated!");
         dispatch(getAllOrdersOfShop(seller._id));
