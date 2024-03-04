@@ -61,8 +61,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { NotFound } from "./routes/NotFound.jsx";
 
-axios.defaults.withCredentials = true;
-
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
 
