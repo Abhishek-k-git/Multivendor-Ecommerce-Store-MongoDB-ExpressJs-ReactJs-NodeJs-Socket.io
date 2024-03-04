@@ -1,7 +1,6 @@
 const sendShopToken = (user, statusCode, res) => {
   const token = user.getJwtToken();
   const options = {
-    domain: "shopshell.netlify.app",
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     sameSite: "None",
