@@ -68,7 +68,7 @@ const ShopCreate = () => {
         Register as a seller
       </h2>
       <div className="w-full max-w-[400px] bg-white px-4 py-8 shadow sm:rounded-lg">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-2" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
@@ -231,7 +231,7 @@ const ShopCreate = () => {
           <div>
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-black text-white text-sm hover:bg-opacity-80 focus:bg-opacity-90"
+              className="mt-2 w-full px-6 py-3 bg-black text-white text-sm hover:bg-opacity-80 focus:bg-opacity-90"
             >
               Submit
             </button>

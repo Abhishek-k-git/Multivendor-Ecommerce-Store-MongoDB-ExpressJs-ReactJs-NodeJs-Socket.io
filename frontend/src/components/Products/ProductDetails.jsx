@@ -128,7 +128,7 @@ const ProductDetails = ({ data }) => {
                     <img
                       src={`${i?.url}`}
                       alt=""
-                      className="w-full aspect-square"
+                      className="w-full aspect-square object-contain"
                       onClick={() => setSelect(index)}
                     />
                   </div>

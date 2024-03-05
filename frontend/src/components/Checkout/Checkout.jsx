@@ -106,7 +106,7 @@ const Checkout = () => {
     : (subTotalPrice + shipping).toFixed(2);
 
   return (
-    <div className="w-full flex flex-col md:flex-row">
+    <div className="w-full flex flex-col md:flex-row min-h-[70vh]">
       <div className="w-full md:w-1/2 lg:w-3/5">
         <ShippingInfo
           user={user}
@@ -134,13 +134,15 @@ const Checkout = () => {
           setCouponCode={setCouponCode}
           discountPercentenge={discountPercentenge}
         />
-        <div className="w-full m-4 text-center">
-          <span
-            className="w-full p-3 bg-black text-white text-center text-sm my-4 cursor-pointer"
-            onClick={paymentSubmit}
-          >
-            Go to Payment
-          </span>
+        <div className="w-full p-4 max-w-xl mx-auto">
+          <div className="w-full">
+            <span
+              className="w-full flex items-center justify-center grow p-3 bg-black text-white text-sm cursor-pointer"
+              onClick={paymentSubmit}
+            >
+              Go to Payment
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -164,9 +166,6 @@ const ShippingInfo = ({
 }) => {
   return (
     <div className="w-full p-4 max-w-xl mx-auto md:mx-0">
-      <h2 className="text-lg font-semibold text-black text-opacity-80 mb-6">
-        Shipping Address
-      </h2>
       <form className="flex flex-col items-center text-sm gap-4">
         <div className="w-full flex flex-col lg:flex-row gap-4">
           <div className="w-full lg:w-1/2 flex flex-col gap-1">
@@ -335,7 +334,7 @@ const CartData = ({
 }) => {
   return (
     <div className="w-full p-4 max-w-xl mx-auto">
-      <div className="w-full p-4 max-w-md border border-black rounded-lg border-opacity-15 shadow-sm">
+      <div className="w-full p-4 border border-black rounded-lg border-opacity-15 shadow-sm">
         <div className="flex justify-between py-1">
           <h3 className="text-sm font-semibold text-black text-opacity-60">
             Subtotal

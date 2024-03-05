@@ -268,11 +268,12 @@ const Header = ({ activeHeading }) => {
                     </Link>
                   ) : (
                     <>
-                      <Link to="/login" className="text-sm text-white">
-                        Login <span className="mx-4">/</span>
+                      <Link to="/login" className="text-sm text-black m-2">
+                        Login
                       </Link>
-                      <Link to="/sign-up" className="text-sm text-white">
-                        Sign up
+                      <span className="m-2 text-sm">or</span>
+                      <Link to="/sign-up" className="text-sm text-black m-2">
+                        Signup
                       </Link>
                     </>
                   )}
