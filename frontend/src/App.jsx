@@ -318,7 +318,7 @@ const App = () => {
           }
         />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={null} />
       </Routes>
       <ToastContainer
         position="bottom-center"
