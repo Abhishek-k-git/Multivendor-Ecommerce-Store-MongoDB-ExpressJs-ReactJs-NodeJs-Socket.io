@@ -89,6 +89,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={null} />
           </Routes>
         </Elements>
       )}
