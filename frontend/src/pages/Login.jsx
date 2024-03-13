@@ -35,6 +35,7 @@ const LoginPage = () => {
       .then((res) => {
         toast.success("Login Success!");
         Cookies.set("token", res?.token);
+        console.log(res);
         navigate("/");
         // window.location.reload(true);
       })
