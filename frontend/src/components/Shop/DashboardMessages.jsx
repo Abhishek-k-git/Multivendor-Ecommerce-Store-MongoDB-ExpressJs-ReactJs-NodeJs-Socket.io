@@ -13,6 +13,7 @@ const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 import { server } from "../../const.js";
 import { IconButton } from "@mui/material";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const DashboardMessages = () => {
   const { seller, isLoading } = useSelector((state) => state.seller);
@@ -276,7 +277,11 @@ const MessageList = ({
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`${server}/user/user-info/${userId}`);
+        const res = await axios.get(`${server}/user/user-info/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+          },
+        });
         setUser(res.data.user);
       } catch (error) {
         toast.error(error.message);

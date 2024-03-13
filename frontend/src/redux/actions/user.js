@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../../const.js";
+import Cookies from "js-cookie";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -8,6 +9,9 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
       withCredentials: true,
     });
     dispatch({
@@ -162,6 +166,9 @@ export const getAllUsers = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${server}/user/admin-all-users`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
       withCredentials: true,
     });
 

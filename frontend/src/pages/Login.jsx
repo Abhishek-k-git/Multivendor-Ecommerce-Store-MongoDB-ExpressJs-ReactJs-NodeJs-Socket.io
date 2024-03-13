@@ -5,6 +5,7 @@ import axios from "axios";
 import { server } from "../const.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const LoginPage = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
+        Cookies.set("token", res?.token);
         navigate("/");
         window.location.reload(true);
       })
