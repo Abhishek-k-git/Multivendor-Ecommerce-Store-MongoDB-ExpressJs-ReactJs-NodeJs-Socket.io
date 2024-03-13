@@ -166,9 +166,6 @@ export const getAllUsers = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${server}/user/admin-all-users`, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
       withCredentials: true,
     });
 
