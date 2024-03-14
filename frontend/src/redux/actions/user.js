@@ -1,18 +1,18 @@
 import axios from "axios";
 import { server } from "../../const.js";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 // load user
 export const loadUser = () => async (dispatch) => {
   try {
-    console.log("is cookie sending: ", Cookies.get("token"));
+    // console.log("is cookie sending: ", Cookies.get("token"));
     dispatch({
       type: "LoadUserRequest",
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${Cookies.get("token")}`,
+      // },
       withCredentials: true,
     });
     dispatch({
