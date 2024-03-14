@@ -9,7 +9,7 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
     "------------------------------isAuthenticated-------------------------------",
     req.headers.authorization
   );
-  const { token } = req.headers.Authorization;
+  const { token } = req.headers.authorization;
   console.log(
     "------------------------------isAuthenticated-token-------------------------------",
     token
