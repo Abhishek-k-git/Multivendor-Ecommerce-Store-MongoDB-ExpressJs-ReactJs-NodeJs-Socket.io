@@ -5,8 +5,11 @@ const User = require("../model/user");
 const Shop = require("../model/shop");
 
 exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
-  console.log("----------isAuthenticated---------- Bearer-----", req.headers);
-  const { token } = req.headers.cookie;
+  console.log(
+    "------------------------------isAuthenticated-------------------------------",
+    req.headers
+  );
+  const { token } = req.cookies;
   if (!token) {
     return next(new ErrorHandler("Please login to continue", 401));
   }
