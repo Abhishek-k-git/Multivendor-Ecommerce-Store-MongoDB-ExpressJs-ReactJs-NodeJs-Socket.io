@@ -7,7 +7,7 @@ const Shop = require("../model/shop");
 exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   console.log(
     "------------------------------isAuthenticated-------------------------------",
-    req.headers.Authorization
+    req.headers.authorization
   );
   const { token } = req.headers.Authorization;
   if (!token) {
