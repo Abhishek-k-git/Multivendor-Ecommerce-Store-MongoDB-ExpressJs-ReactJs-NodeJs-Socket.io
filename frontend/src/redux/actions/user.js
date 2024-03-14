@@ -10,9 +10,9 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
-      headers: {
-        usertoken: `${Cookies.get("token")}`,
-      },
+      // headers: {
+      //   usertoken: `${Cookies.get("token")}`,
+      // },
       withCredentials: true,
     });
     dispatch({
