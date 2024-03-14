@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 // load user
 export const loadUser = () => async (dispatch) => {
   try {
+    console.log("is cookie sending: ", Cookies.get("token"));
     dispatch({
       type: "LoadUserRequest",
     });
