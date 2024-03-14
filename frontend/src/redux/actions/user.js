@@ -11,7 +11,7 @@ export const loadUser = () => async (dispatch) => {
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
       headers: {
-        userToken: `${Cookies.get("token")}`,
+        Authorization: `token=${Cookies.get("token")}`,
       },
       withCredentials: true,
     });
