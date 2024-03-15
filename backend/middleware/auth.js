@@ -10,10 +10,10 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   //   req.headers.usertoken
   // );
   // const token = req.headers.usertoken;
-  // console.log(
-  //   "------------------------------isAuthenticated-token-------------------------------",
-  //   token
-  // );
+  console.log(
+    "------------------------------isAuthenticated--req-------------------------------",
+    req
+  );
   const { token } = req.cookies;
   if (!token) {
     return next(new ErrorHandler("Please login to continue", 401));

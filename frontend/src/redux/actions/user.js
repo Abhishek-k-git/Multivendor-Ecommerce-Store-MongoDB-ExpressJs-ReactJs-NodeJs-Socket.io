@@ -1,6 +1,6 @@
 import axios from "axios";
 import { server } from "../../const.js";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 // load user
 export const loadUser = () => async (dispatch) => {
