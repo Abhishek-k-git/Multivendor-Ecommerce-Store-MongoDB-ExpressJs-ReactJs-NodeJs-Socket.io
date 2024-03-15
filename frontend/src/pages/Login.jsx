@@ -5,9 +5,6 @@ import axios from "axios";
 import { server } from "../const.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
-import Store from "../redux/store.js";
-import { loadUser } from "../redux/actions/user.js";
-import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -35,11 +32,9 @@ const LoginPage = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        Cookies.set("token", res?.data?.token);
-        Store.dispatch(loadUser());
         toast.success("Login Success!");
         navigate("/");
-        // window.location.reload(true);
+        window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
