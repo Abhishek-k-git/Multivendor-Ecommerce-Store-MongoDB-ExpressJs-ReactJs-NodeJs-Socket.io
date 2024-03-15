@@ -10,9 +10,9 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
     const { data } = await axios.post(`${server}/user/getuser`, {
-      // headers: {
-      //   Cookie: `token=${Cookies.get("token")}`,
-      // },
+      headers: {
+        Cookie: `token=${Cookies.get("token")}`,
+      },
       withCredentials: true,
     });
     console.log("loaduser-data: ", data);
