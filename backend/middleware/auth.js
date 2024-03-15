@@ -11,7 +11,7 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   // );
   // const token = req.headers.usertoken;
   console.log(
-    "------------------------------isAuthenticated--req-------------------------------",
+    "|||---------------------------isAuthenticated--req----------------------------|||",
     req
   );
   const { token } = req.cookies;

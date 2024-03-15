@@ -5,7 +5,7 @@ import { server } from "../../const.js";
 // load user
 export const loadUser = () => async (dispatch) => {
   try {
-    // console.log("is cookie sending: ", Cookies.get("token"));
+    console.log("loaduser------------");
     dispatch({
       type: "LoadUserRequest",
     });
@@ -15,6 +15,7 @@ export const loadUser = () => async (dispatch) => {
       // },
       withCredentials: true,
     });
+    console.log("loaduser-data: ", data);
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,

@@ -6,6 +6,7 @@ import { server } from "../const.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Store from "../redux/store.js";
+import { loadUser } from "../redux/actions/user.js";
 // import Cookies from "js-cookie";
 
 const LoginPage = () => {

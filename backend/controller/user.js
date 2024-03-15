@@ -137,7 +137,7 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       console.log(
-        "------------------------------------inside getuser------------------------------------"
+        "|||||-------------------------------inside getuser-------------------------------||||"
       );
       const user = await User.findById(req.user.id);
 
